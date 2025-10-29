@@ -1,0 +1,143 @@
+:root {
+    --bg-color: #f0f4f8;
+    --card-bg: #ffffff;
+    --primary-color: #007bff; /* X color */
+    --secondary-color: #dc3545; /* O color */
+    --text-color: #333;
+    --border-color: #ddd;
+    --success-color: #28a745;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Adjusted size for a square board */
+    text-align: center;
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+/* Game Status */
+.game-status {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    min-height: 1.5em; /* Prevent layout shift */
+}
+
+/* Board */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 30px;
+    aspect-ratio: 1 / 1; /* Keep it square */
+    border: 3px solid var(--text-color);
+    border-radius: 5px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: 900;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.1s;
+    border: 1px solid var(--border-color);
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Internal borders for better separation */
+.board > :nth-child(3n) { border-right: none; }
+.board > :nth-child(3n+1) { border-left: none; }
+.board > :nth-child(-n+3) { border-top: none; }
+.board > :nth-child(n+7) { border-bottom: none; }
+
+
+.cell:hover:empty {
+    background-color: #e6e6e6;
+}
+
+.cell.x {
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.cell.o {
+    color: var(--secondary-color);
+    text-shadow: 2px 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.cell.winning {
+    background-color: var(--success-color);
+    color: white !important;
+    animation: win-pulse 1s infinite alternate;
+}
+
+@keyframes win-pulse {
+    from { opacity: 1; }
+    to { opacity: 0.8; }
+}
+
+
+/* Button */
+.action-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.action-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    .board {
+        max-width: 90vw;
+        margin: 0 auto 20px;
+    }
+    .cell {
+        font-size: 2.5em;
+    }
+}
+
